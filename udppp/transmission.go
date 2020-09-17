@@ -3,10 +3,12 @@ package udppp
 import (
 	"fmt"
 	"net"
+	"time"
 )
 
 var Streamreceived = make(chan []byte, 0)
 var Streamsend = make(chan []byte, 0)
+
 
 func SendMessage(address string) {
 	remoteAddr, err := net.ResolveUDPAddr("udp", address)
@@ -39,5 +41,6 @@ func SendMessage(address string) {
 		Streamreceived <- receivedata[:n]
 	}
 	close(Streamreceived)
+	time.Sleep(1)
 
 }

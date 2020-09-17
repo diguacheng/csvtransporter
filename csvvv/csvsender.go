@@ -49,6 +49,7 @@ func ReadCSVFile(path string) {
 			return 
 		}
 	}
+
 	_=fileobj.Close()
 	time.Sleep(2)
 
