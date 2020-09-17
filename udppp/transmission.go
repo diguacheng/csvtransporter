@@ -47,5 +47,4 @@ func SendMessage(address string) {
 	close(Streamreceived)
 	for range Flag{}// 等待save 协程结束
 	return
-
 }
