@@ -37,37 +37,14 @@ func SavetoFile(pth string) {
 		fmt.Println(err.Error())
 		return 
 	}
-	for {
-		select {
-		case data,ok := <-udppp.Streamreceived:
-			// fmt.Println(string(data),len(data),ok,"11111")
-			if ok == false {
-				return
-			}
-			_, err := writer.WriteString(string(data))
-			_ = writer.Flush()
-			if err != nil {
-				return
-			}
-			fmt.Printf("写入数据%s \n", string(data))
-
+	for data := range udppp.Streamreceived{
+		_, err := writer.WriteString(string(data))
+		_ = writer.Flush()
+		if err != nil {
+			return
 		}
+		fmt.Printf("写入数据%s \n", string(data))
 	}
+
 }
 
-// func save(ctx context.Context,writer *bufio.Writer){
-// 	for {
-// 		select {
-// 		case data ,ok:=<-udppp.Streamreceived:
-// 			if ok==false{
-// 				return
-// 			}
-// 			_,err:=writer.WriteString( string(data) )
-// 			_=writer.Flush()
-// 			if err!=nil{
-// 				return
-// 			}
-// 			fmt.Printf("写入数据%s \n",string(data))
-//
-// 	}
-// }

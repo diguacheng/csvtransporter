@@ -1,10 +1,12 @@
 package main
 
 import (
-	"github.com/diguacheng/csvtransporter/csvvv"
-	"github.com/diguacheng/csvtransporter/udppp"
 	"flag"
 	"fmt"
+
+
+	"github.com/diguacheng/csvtransporter/csvvv"
+	"github.com/diguacheng/csvtransporter/udppp"
 )
 
 
@@ -13,7 +15,9 @@ func main() {
 	var address = flag.String("address", "127.0.0.1:9982", "the remote address")
 	flag.Parse()
 	fmt.Println(*path, *address)
+
 	go csvvv.SavetoFile("./return"+*path)
 	go csvvv.ReadCSVFile("./" + *path)
 	udppp.SendMessage(*address)
+	
 }
