@@ -43,8 +43,9 @@ func SavetoFile(pth string) {
 		if err != nil {
 			return
 		}
-		fmt.Printf("写入数据%s \n", string(data))
+		fmt.Printf("写入数据%s\n", string(data))
 	}
-
+	udppp.Flag<-1
+	close(udppp.Flag)
 }
 

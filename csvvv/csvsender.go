@@ -26,7 +26,7 @@ func ReadCSVFile(path string) {
 	_, err = Reader.ReadBytes('\n')
 	// 排除第一行表头 
 	if err == io.EOF {
-		fmt.Println("已经发送完 ！ ")
+		fmt.Println("已经发送完！ ")
 		return 
 	}
 	if err != nil {
@@ -41,7 +41,7 @@ func ReadCSVFile(path string) {
 		if err == io.EOF {
 			close(udppp.Streamsend)
 			time.Sleep(time.Duration(time.Second*1))
-			fmt.Println("已经发送完 ！")
+			fmt.Println("已经发送完！")
 			break
 		}
 		if err != nil {
@@ -49,7 +49,6 @@ func ReadCSVFile(path string) {
 			return 
 		}
 	}
-
 	_=fileobj.Close()
 	time.Sleep(2)
 

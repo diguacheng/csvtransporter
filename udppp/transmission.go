@@ -3,11 +3,12 @@ package udppp
 import (
 	"fmt"
 	"net"
-	"time"
+
 )
 
 var Streamreceived = make(chan []byte, 0)
 var Streamsend = make(chan []byte, 0)
+var Flag = make(chan int )
 
 
 func SendMessage(address string) {
@@ -26,6 +27,9 @@ func SendMessage(address string) {
 	receivedata := make([]byte, 1024)
 	for data := range Streamsend {
 		// 当通道关闭时，for循环自动退出
+		if len(data)==0{
+			continue
+		}
 		_, err := conn.Write(data)
 		if err != nil {
 			fmt.Println(err.Error())
@@ -41,6 +45,7 @@ func SendMessage(address string) {
 		Streamreceived <- receivedata[:n]
 	}
 	close(Streamreceived)
-	time.Sleep(1)
+	for range Flag{}// 等待save 协程结束
+	return
 
 }
